@@ -10,3 +10,11 @@ Demo
 ====
 
 [Live DEMO with screenshots](http://bgaewiki.appspot.com)
+
+
+License
+=======
+
+The wiki itself is distributed under GNU GPL v3.
+
+pytz is distributed under the MIT license.
