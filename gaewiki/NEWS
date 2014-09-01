@@ -1,0 +1,67 @@
+BGAEWiki
+
+- Python 2.7 ready
+- Bootstrap Mobile first
+
+gae-wiki 1.2
+
+- Fixed a bug with /w/changes in open-reading wikis.
+- Fixed a the extra_styles setting.
+- Fixed misplaced Edit/History tabs.
+- Fixed viewing particular page revisions.
+- Fixed /w/data/import.
+- Fixed rendering of unlabelled links in Markdown.
+- Fixed w/changes, restricted access to it.
+- Fixed backlinks.
+- Fixed wiki links with square brackets in titles.
+- Added some caching to increase performance.
+- Added support for time zones.
+- Added a way to disable anonymous edits, but allow all logged in users.
+- Added breadcrumbs for hierarchical data.
+- Added memcache.
+- Added support for image uploads.
+- Added namespace-aware page sorting.
+
+gae-wiki 1.1
+
+- Fixed issue 40: users now have custom nicknames, editable at /w/profile.
+- Fixed escaping of URLs and emails in RSS.
+- Spaces in URLs are now replaced with underscores.
+- The /w/index.rss feed shows new pages first.
+- Fixed absolute URLs in RSS, sitemap.xml and robots.txt.
+- display_title is used in page titles and RSS.
+- Added support for podcasting (page properties file, file_size,
+  file_type, see wiki for details).
+- The locked:yes property now works.
+- Disabled external URL decoration.
+- Fixed page labels not being shown.
+- Added label RSS feeds (/w/pages.rss?label=xyz).
+- [[List:xyz]] now supports the display_title page property.
+- Better support for redirects.
+- Support for external comment services.
+- Fixed locked page icon being always shown.
+- The list of active users (/w/users) is now admin only.
+- Google Maps and article geotagging.
+- New page property: date.
+- Pages can be sorted by date using the [[List:label;sort=date,desc]] syntax.
+- Added an MP3 player.
+- Fixed the Universal Edit Button.
+- Page name is now an editable property.
+- Added a /w/login page to use when the template is screwed.
+- Generated links now have tooltips with real page names.
+- Links to missing pages are now highlighted and lead to edit pages.
+- Raw page contents can be retrieved using ?format=raw.  This is
+  useful for hosting custom styles and scripts in the wiki itself.
+- Moved to django 1.2
+
+
+gae-wiki 1.0 (20110514)
+
+- Moved the code to the gaewiki module.
+- Unit testing added, run with "make test".
+- Page parser supports different types of line ending.
+- Custom pages for errors 400, 403, 404 and 500 (name them "gaewiki:error-400"
+  and so on).
+- Page property display_title can be used to override the main header.  Empty
+  value hides the page header.
+- Templates only use wiki_title when it's set.

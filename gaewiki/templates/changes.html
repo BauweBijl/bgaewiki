@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Recent changes{% endblock %}
+{% block content %}
+  <ul class="nav nav-tabs" role="tablist">
+<li class="active"><a href="/w/changes">View</a></li>
+<li><a href="/w/changes.rss">RSS</a></li>
+</ul>
+<h1>Recent changes</h1>
+{% if pages %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Page</th>
+      <th>Edited on</th>
+      <th>Editor</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for page in pages %}
+      <tr>
+        <td>
+          <a {% if page.pread %} public{% endif %}" href="{{ page.title|pageurl }}">{{ page.title|escape }}</a>
+        </td>
+        <td>
+          {{ page.updated|timezone|date:"Y/m/d H:i:s" }}
+        </td>
+        <td>
+          {% if page.author %}
+            <a href="/user%3A{{ page.author.get_nickname|uurlencode }}">{{ page.author.get_nickname|escape }}</a>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% else %}
+<p>Nothing was changed yet.</p>
+{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+      {% if settings.extra_styles %}
+        {% for style in settings.extra_styles %}
+          <link rel="stylesheet" type="text/css" href="{{ style|escape }}"/>
+        {% endfor %}
+      {% else %}
+    <link href="/gae-wiki-static/scripts/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/gae-wiki-static/scripts/css/wiki.css" rel="stylesheet">
+      {% endif %}
+        <!--[if gte IE 6]>
+      {% if settings.extra_ie_styles %}
+        {% for style in settings.extra_ie_styles %}
+          <link rel="stylesheet" type="text/css" href="{{ style|escape }}"/>
+        {% endfor %}
+      {% else %}
+        <link rel="stylesheet" type="text/css" href="/gae-wiki-static/ie.css"/>
+      {% endif %}
+        <![endif]-->
+      <link rel="shortcut icon" href="{% if settings.favicon %}{{ settings.favicon|escape }}{% else %}/gae-wiki-static/favicon.ico{% endif %}" type="image/png" /> 
+      <link rel="alternate" type="application/rss+xml" title="New Pages" href="/w/index.rss" /> 
+      {% block heads %}{% endblock %}
+      <title>{% block title %}{{ settings.wiki_title|escape }}{% endblock %}</title>
+      {% if settings.owner_meta %}
+        <meta name="google-site-verification" content="{{ settings.owner_meta }}"/>
+      {% endif %}
+      {% if settings.gaid %}<script type="text/javascript">var _gaq = _gaq || []; _gaq.push(['_setAccount', '{{ settings.gaid }}']); _gaq.push(['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();</script>{% endif %}
+      {% for script in settings.extra_scripts %}
+        <script type="text/javascript" src="{{ script|escape }}"></script>
+      {% endfor %}
+      {% if settings.extra_init_script %}
+        <script type="text/javascript">{{ settings.extra_init_script }}</script>
+      {% endif %}
+    </head>
+
+    <body>
+    	{% block header %}
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse, .navbar-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">{{ settings.wiki_title|escape }}</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            {% if user %}
+              <li><a href="/w/profile"><strong><span class="glyphicon glyphicon-user"></span> {{ user.get_nickname|escape }}</strong></a></li>
+              <li><a href="/w/index"><span class="glyphicon glyphicon-folder-open"></span> Index</a>
+              <li><a href="/w/changes"><span class="glyphicon glyphicon-list"></span> Changes</a></li>
+              {% if is_admin %}
+                <li><a href="/w/users"><span class="glyphicon glyphicon-globe"></span> Users</a></li>
+              {% endif %}
+                <li><a href="{{ log_out_url|escape }}"><span class="glyphicon glyphicon-log-out"></span> Sign out</a></li>
+            {% else %}
+              <li><a href="{{ log_in_url|escape }}"><span class="glyphicon glyphicon-log-in"></span> Log in</a></li>
+            {% endif %}
+           </ul>
+        </div>
+       <div class="navbar-menu collapse">
+	<div class="row">
+	  <div class="col-xs-6"><a href="/gaewiki:sidebar" class="btn btn-success btn-block btn-sm" role="button">Menu</a></div>
+	  <div class="col-xs-6"><a href="/w/backlinks?page={{ page.title|uurlencode }}" class="btn btn-info btn-block btn-sm" role="button">Pages that link here</a></div>
+	</div>
+	<br><br>
+       </div>
+      </div>
+    </div>
+    	{% endblock %}
+    {% if sidebar %}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+        {{ sidebar|wikify|safe }}
+        {% if page.is_saved %}
+    {% endif %}
+            <h3><span class="glyphicon glyphicon-briefcase"></span> Tools</h3>
+            <li><a href="/w/backlinks?page={{ page.title|uurlencode }}">Pages that link here</a></li>
+          </ul>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      {% block content %}{% endblock %}
+    </div>
+		{% block footer %}
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="well well-sm">
+        {% if page.is_saved %}
+        <p id="pm">This {% if revision %}revision was added{% else %}page was last edited{% endif %} {% if page.author.get_nickname %}by <a href="/user%3A{{ page.author.get_nickname|uurlencode }}">{{ page.author.get_nickname|escape }}</a>{% else %}anonymously{% endif %} on {{ page.updated|timezone|date:"Y/m/d H:i:s" }}.</p>
+        {% endif %}
+        {% if footer %}{{ footer|wikify|safe }}{% endif %}
+        </div>
+      </div>
+		{% endblock %}
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/gae-wiki-static/scripts/btstrp/jquery.min.js"></script>
+    <script src="/gae-wiki-static/scripts/btstrp/bootstrap.min.js"></script>
+    <script src="/gae-wiki-static/scripts/btstrp/docs.min.js"></script>
+  </body>
+</html>

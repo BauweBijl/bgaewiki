@@ -1,0 +1,20 @@
+application: bgaewiki
+version: 0-1
+runtime: python27
+threadsafe: yes
+api_version: 1
+
+default_expiration: "7d"
+
+handlers:
+- url: /gae-wiki-static/
+  static_dir: gaewiki/static
+- url: /favicon.ico
+  static_files: gaewiki/static/favicon.ico
+  upload: gaewiki/static/favicon.ico
+- url: .*
+  script: gaewiki.application
+
+libraries:
+- name: django
+  version: "1.2"

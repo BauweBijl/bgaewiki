@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ image.meta.filename|escape }}{% if settings.wiki_title %} — {{ settings.wiki_title|escape }}{% endif %}{% endblock %}
+{% block content %}
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#"><span class="glyphicon glyphicon-eye-open"></span> View</a></li>
+  <li><a href="/w/image/list"><span class="glyphicon glyphicon-th-list"></span> List</a></li>
+  <li><a href="/w/image/upload"><span class="glyphicon glyphicon-upload"></span> Upload</a></li>
+</ul>
+  <h1>{{ image.meta.filename|escape }}</h1>
+  <p class="alert alert-info" role="alert">This file was uploaded on {{ image.meta.creation }}.</p>
+
+  {% for version in image.versions %}
+    <h2>{{ version.0 }}</h2>
+    <div><img class="img-preview" alt="{{ version.0 }}" src="{{ version.1 }}"/></div>
+    <p class="help-block"><span class="glyphicon glyphicon-info-sign"></span> Wiki code to embed this image:</p>
+    <div><code>{{ version.2 }}</code></div>
+  {% endfor %}
+
+  {% if image.pages %}
+    <h2>Links to this image</h2>
+    <p class="alert alert-info" role="alert">This image is used by the following pages:</p>
+    <ul class="list-group">
+      {% for page in image.pages %}
+        <li class="list-group-item"><a href="{{ page.title|pageurl }}">{{ page.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+indexes:
+- kind: WikiContent
+  properties:
+  - name: title
+  - name: updated
+    direction: desc
+
+- kind: WikiRevision
+  properties:
+  - name: title
+  - name: created
+    direction: desc
+
+- kind: WikiContent
+  properties:
+  - name: labels
+  - name: title
+
+- kind: WikiContent
+  properties:
+  - name: labels
+  - name: created
+    direction: desc
+
+# Used to find geotagged pages with a certain label.
+- kind: WikiContent
+  properties:
+  - name: labels
+  - name: created
+    direction: desc
+
+# To fix changes page being broken.
+- kind: WikiContent
+  properties:
+  - name: pread
+  - name: updated
+    direction: desc
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+     xmlns:georss="http://www.georss.org/georss"
+     xmlns:gml="http://www.opengis.net/gml">
+<channel>
+<atom:link href="{{ self }}" rel="self" type="application/rss+xml" />
+<title>{% if settings.wiki_title %}{{ settings.wiki_title }} {% endif %}Pages</title>
+<description>New pages{% if settings.wiki_title %} in {{ settings.wiki_title }}{% endif %}.</description>
+<link>{{ base }}/w/index</link>
+{% for item in pages %}
+<item>
+<title>{{ item.get_display_title|escape }}</title>
+<link>{{ base }}{{ item.title|pageurl }}</link>
+<guid>{{ base }}{{ item.title|pageurl }}</guid>
+<pubDate>{{ item.updated|timezone|date:"r" }}</pubDate>
+<author>{{ item.author.get_public_email|escape }}</author>
+<description>{{ item.body|wikify|escape }}</description>
+{% if item.get_file %}
+<enclosure url="{{ item.get_file|escape }}" type="{{ item.get_file_type|escape }}"{% if item.get_file_length %} length="{{ item.get_file_length|escape }}"{% endif %}/>
+{% endif %}
+{% if item.geopt %}
+<georss:point>{{ item.geopt.lat }} {{ item.geopt.lon }}</georss:point>
+<georss:where><gml:Point><gml:pos>{{ item.geopt.lat }} {{ item.geopt.lon }}</gml:pos></gml:Point></georss:where>{% endif %}
+<geo:lat>{{ item.geopt.lat }}</geo:lat>
+<geo:lon>{{ item.geopt.lon }}</geo:lon>
+</item>
+{% endfor %}
+</channel>
+</rss>

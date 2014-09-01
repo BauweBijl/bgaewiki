@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Users{% endblock %}
+{% block content %}
+  <h1>Known users</h1>
+  <form method="post">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>First activity</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for user in users %}
+        <tr>
+          <td><a href="/user%3A{{ user.get_nickname|uurlencode }}">{{ user.get_nickname|escape }}</a></td>
+          <td>{{ user.joined|timezone|date:"Y/m/d" }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </form>
+</div>
+{% endblock %}

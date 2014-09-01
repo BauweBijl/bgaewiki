@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Links to {{ page_title|escape }}{% endblock %}
+{% block content %}
+  <ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="{{ page_title|pageurl }}"><span class="glyphicon glyphicon-eye-open"></span> View</a></li>
+  <li><a href="/w/edit?page={{ page_title|uurlencode }}"><span class="glyphicon glyphicon-pencil"></span> Edit</a></li>
+  <li><a href="/w/history?page={{ page_title|uurlencode }}"><span class="glyphicon glyphicon-circle-arrow-left"></span> History</a></li>
+</ul>
+<h1>{{ page_title|escape }}</h1>
+{% if page_links %}
+<p class="alert alert-info" role="alert">The following pages link here:</p>
+<ul class="list-group">{% for page in page_links %}
+  <li class="list-group-item"><a href="{{ page.title|pageurl }}">{{ page.title|escape }}</a></li>
+{% endfor %}</ul>
+{% else %}
+<p class="alert alert-danger" role="alert">Other pages don't link to <a href="{{ page_title|pageurl }}">{{ page_title|escape }}</a>.</p>
+{% endif %}
+</div>
+{% endblock %}

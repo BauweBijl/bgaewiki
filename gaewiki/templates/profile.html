@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+  <h1>Your profile</h1>
+  <form method="post">
+    <table class="table">
+      <tbody>
+        <tr>
+          <th>Email:</th>
+          <td>{{ user.wiki_user.email|escape }}</td>
+        </tr>
+        <tr>
+          <th>Public page:</th>
+          <td><a href="/user%3A{{ user.get_nickname|uurlencode }}">user:{{ user.get_nickname|escape }}</a></td>
+        </tr>
+        <tr>
+          <th>Nickname:</th>
+          <td>
+	<div class="form-group">
+	    <div class="input-group">
+	      <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+	      <input class="form-control" type="email" value="{{ user.get_nickname|escape }}">
+	    </div>
+	   <p class="help-block"><span class="glyphicon glyphicon-info-sign"></span> Used in <a href="/w/changes">the list of changes</a> etc.</p>
+	  </div>
+          </td>
+        </tr>
+        <tr>
+          <th>Public email:</th>
+          <td>
+	<div class="form-group">
+	    <div class="input-group">
+	      <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+	      <input class="form-control" type="email" value="{{ user.get_public_email|escape }}">
+	    </div>
+	   <p class="help-block"><span class="glyphicon glyphicon-info-sign"></span> Used in RSS.</p>
+	  </div>
+          </td>
+        </tr>
+        <tr>
+          <th/>
+          <td><input class="btn btn-primary" type="submit" value="Save changes"/></td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
+{% endblock %}

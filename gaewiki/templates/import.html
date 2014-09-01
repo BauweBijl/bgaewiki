@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+  <ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="/w/data/import"><span class="glyphicon glyphicon-import"></span> Import</a></li>
+  <li><a href="/w/data/export"><span class="glyphicon glyphicon-export"></span> Export</a></li>
+</ul>
+    <h1>Data import</h1>
+    <p class="alert alert-info" role="alert">Please select a previously exported JSON file.</p>
+    <form method="post" enctype="multipart/form-data">
+      <div>
+        <input type="file" name="file"/><br>
+      </div>
+      <div>
+        <label class="help-block"><input type="checkbox" name="merge"/> Only add pages that don't exist</label><br>
+      </div>
+      <div>
+        <input type="submit" value="Upload"/>
+      </div>
+    </form>
+  </div>
+{% endblock %}

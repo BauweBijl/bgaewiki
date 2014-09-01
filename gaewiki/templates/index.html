@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+{% block content %}
+  <ul class="nav nav-tabs" role="tablist">
+<li class="active"><a href="/w/index">View</a></li>
+<li><a href="/w/index.rss">RSS</a></li>
+</ul>
+<h1>Page index</h1>
+{% if pages %}
+  <ul class="list-group">
+    {% for page in pages %}{% if page.redirect %}{% else %}
+    <li class="list-group-item">
+      <a href="{{ page.title|pageurl }}">{{ page.title|escape }}</a>
+    </li>
+    {% endif %}{% endfor %}
+  </ul>
+{% else %}
+<p>Nothing to see here.</p>
+{% endif %}
+
+</div>
+{% endblock %}

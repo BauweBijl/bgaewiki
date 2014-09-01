@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Editing "{{ page.title|escape }}"{% if settings.wiki_title %} — {{ settings.wiki_title|escape }}{% endif %}{% endblock %}
+{% block heads %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<!--
+<script type="text/javascript" src="/gae-wiki-static/scripts/markitup/jquery.markitup.pack.js"></script>
+<script type="text/javascript" src="/gae-wiki-static/scripts/markitup/sets/markdown/set.js"></script>
+-->
+<script type="text/javascript" src="/gae-wiki-static/editor.js"></script>
+<!--
+<link rel="stylesheet" type="text/css" href="/gae-wiki-static/scripts/markitup/skins/markitup/style.css" />
+<link rel="stylesheet" type="text/css" href="/gae-wiki-static/scripts/markitup/sets/markdown/style.css" />
+-->
+{% endblock %}
+{% block content %}
+  <ul class="nav nav-tabs" role="tablist">
+    <li><a href="{{ page.title|pageurl }}"><span class="glyphicon glyphicon-eye-open"></span> View</a></li>
+    <li class="active"><a href="/w/edit?page={{ page.title|uurlencode }}"><span class="glyphicon glyphicon-pencil"></span> Edit</a></li>
+    <li><a href="/w/history?page={{ page.title|uurlencode }}"><span class="glyphicon glyphicon-circle-arrow-left"></span> History</a></li>
+  </ul>
+    <h1>Page Preview: {% if page.title %}{{ page.title|escape }}{% else %}New page{% endif %}</h1>
+      <div id="preview-back">
+      <div id="preview">
+        <div class="alert alert-info" role="alert">
+      {{ page|wikify_page|safe }}
+        </div>
+      {% if page_labels %}
+        <p class="categories">{% if settings.labels_text %}{{ settings.labels_text }}{% else %}Labels{% endif %}: {% for label in page_labels %}{% if forloop.first %}{% else %}, {% endif %}<a class="int" href="{{ label|labelurl }}">{{ label|escape }}</a>{% endfor %}.</p>
+      {% endif %}
+      {% if page.comments_enabled %}
+        {{ settings.comments_code|safe }}
+      {% endif %}
+      </div>
+      </div>
+    <form action="/w/edit" method="POST" class="markdown editor">
+        <input type="hidden" name="name" value="{{ page.title|uurlencode }}"/>
+        <div class="well well-sm">
+        <textarea rows="20" cols="80" name="body" id="editor">{% if page.body %}{{ page.get_actual_body }}{% endif %}</textarea>
+        </div>
+        {% if page.is_saved %}
+        <p><label><input type="checkbox" value="1" name="delete"/> Delete this page</label></p>
+        {% endif %}
+        <p class="alert alert-info" role="alert">You can use HTML and <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a> for formatting, <a class="int" href="/w/interwiki" target="_blank">interwikis</a> for linking.</p>
+        <p div class="alert alert-success" role="alert">You can <a href="/w/image/upload" target="_blank">upload images</a> to embed them, or embed <a href="/w/image/list" target="_blank">an existing one</a>.</p>
+        <input class="btn btn-primary" type="submit" name="Preview" value="Preview"/> <input class="btn btn-primary" type="submit" name="Save" value="Save Changes"/> <a class="btn btn-primary" href="{{ page.title|pageurl }}">cancel</a>
+        </div>
+    </form>
+  </div>
+{% endblock %}

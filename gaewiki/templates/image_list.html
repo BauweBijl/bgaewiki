@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Images{% if settings.wiki_title %} — {{ settings.wiki_title|escape }}{% endif %}{% endblock %}
+{% block content %}
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="/w/image/list"><span class="glyphicon glyphicon-th-list"></span> List</a></li>
+  <li><a href="/w/image/upload"><span class="glyphicon glyphicon-upload"></span> Upload</a></li>
+</ul>
+  <h1>Uploaded images</h1>
+  {% if images %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th/>
+          <th>File name</th>
+          <th>Uploaded on</th>
+          <th>Size</th>
+          <th>Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for image in images %}
+          <tr>
+            <td>
+              <img alt="thumbnail" src="{{ image.get_url }}=s25-c" width="25" height="25"/>
+            </td>
+            <td>
+              <a href="/w/image/view?key={{ image.get_key }}">
+                {{ image.get_filename|escape }}
+              </a>
+            </td>
+            <td>
+              {{ image.get_uploaded_on|date:"Y/m/d, H:i" }}
+            </td>
+            <td>
+              {{ image.get_size }}
+            </td>
+            <td>
+              <code>[[Image:{{ image.get_key }}]]</code>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No images were uploaded.</p>
+  {% endif %}
+</div>
+{% endblock %}

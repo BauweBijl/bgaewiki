@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Upload an image{% if settings.wiki_title %} — {{ settings.wiki_title|escape }}{% endif %}{% endblock %}
+{% block content %}
+<ul class="nav nav-tabs" role="tablist">
+  <li><a href="/w/image/list"><span class="glyphicon glyphicon-th-list"></span> List</a></li>
+  <li class="active"><a href="/w/image/upload"><span class="glyphicon glyphicon-upload"></span> Upload</a></li>
+</ul>
+  <h1>Uploading an image</h1>
+  <p class="alert alert-info" role="alert">Please select an image file not larger than 2MB.</p>
+  <form method="post" action="{{ submit_url }}" enctype="multipart/form-data">
+    <div>
+      <input type="file" name="file" accept="image/*"/>
+    </div>
+    <br><button> Upload</button>
+  </form>
+</div>
+{% endblock %}

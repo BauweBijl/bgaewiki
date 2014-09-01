@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Available interwikis</h1>
+  <table class="table">
+    <tbody>{% for iw in interwiki %}
+      <tr>
+        <td>{{ iw.0 }}</td>
+        <td>{{ iw.1|escape }}</td>
+      </tr>
+    {% endfor %}</tbody>
+  </table>
+
+  <p>Interwikis are defined in the <a href="/gaewiki%3Asettings">configuration</a>, refer to the <a href="http://code.google.com/p/gaewiki/wiki/Introduction?tm=6#Interwikis">online manual</a> for details.</p>
+</div>
+{% endblock %}
