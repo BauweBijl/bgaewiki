@@ -48,7 +48,7 @@ class TableProcessor(markdown.blockprocessors.BlockProcessor):
             else:
                 align.append(None)
         # Build table
-        table = etree.SubElement(parent, 'table')
+        table = etree.SubElement(parent, 'table class="table"')
         thead = etree.SubElement(table, 'thead')
         self._build_row(header[0], thead, align, border)
         tbody = etree.SubElement(table, 'tbody')
