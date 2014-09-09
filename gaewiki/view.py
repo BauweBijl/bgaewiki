@@ -65,7 +65,7 @@ def get_footer():
     if page.is_saved():
         body = page.body
     else:
-        body = u'[BGAEWiki](https://github.com/BauweBijl/bgaewiki) by [Bauwe Bijl](http://ict.bauwe.nl)'
+        body = u'[BGAEWiki](https://github.com/BauweBijl/bgaewiki) by [Bauwe Bijl](http://www.bauwe.nl)'
     return body
 
 
